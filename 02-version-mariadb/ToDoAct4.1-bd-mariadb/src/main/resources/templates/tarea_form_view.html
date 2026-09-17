@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Afegir Nova Tasca</title>
+</head>
+
+<body>
+	<h1>Afegir Nova Tasca</h1>
+
+	<div th:if="${errorMsg}" style="color:red;">
+		<p th:text="${errorMsg}"></p>
+	</div>
+
+	<form action="/tarea-add" method="post">
+
+		<label>Usuari:
+			<input name="user" type="text" required />
+		</label><br /><br />
+
+		<label>Descripció:
+			<input name="description" type="text" required />
+		</label><br /><br />
+
+		<label>Prioritat:
+			<select name="priority" required>
+				<option th:each="p : ${prioritats}" th:value="${p}" th:text="${p}"></option>
+			</select>
+		</label><br /><br />
+
+		<label>
+			<input name="done" type="checkbox" value="true" />
+			Realitzada
+		</label><br /><br />
+
+		<label>Data de venciment:
+			<input name="endingDate" type="date" required />
+		</label><br /><br />
+
+		<label>Hora de venciment:
+			<input name="endingTime" type="time" required />
+		</label><br /><br />
+
+		<label>Categoria:
+			<select name="categoria">
+				<option value="">-- Sense categoria --</option>
+				<option th:each="c : ${categories}" th:value="${c}" th:text="${c}"></option>
+			</select>
+		</label><br /><br />
+
+		<input type="submit" value="Afegir" />
+	</form>
+
+	<p><a th:href="@{/}">Tornar al menú principal</a></p>
+</body>
+
+</html>

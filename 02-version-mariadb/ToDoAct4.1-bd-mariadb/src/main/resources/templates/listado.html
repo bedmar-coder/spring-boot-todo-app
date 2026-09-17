@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Llistat de Tasques</title>
+</head>
+
+<body>
+	<h1>Llistat de tasques</h1>
+
+	<table border="1" cellpadding="6">
+		<thead>
+			<tr>
+				<th>Codi</th>
+				<th>Usuari</th>
+				<th>Descripció</th>
+				<th>Venciment</th>
+				<th>Realitzada</th>
+				<th>Categoria</th>
+				<th>Accions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="t : ${tareas}">
+				<td th:text="${t.codigo}"></td>
+				<td th:text="${t.nombre}"></td>
+				<td th:text="${t.descripcion}"></td>
+				<td th:text="${#temporals.format(t.vencimientoEn, 'dd-MM-yyyy HH:mm')}"></td>
+				<td th:text="${t.realizada ? 'Sí' : 'No'}"></td>
+				<td th:text="${t.categoria != null ? t.categoria : '-'}"></td>
+				<td>
+					<a th:href="@{/esborrar(code=${t.codigo})}">Esborrar</a> |
+					<a th:href="@{/tarea(code=${t.codigo})}">Detall</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		<a th:href="@{/tarea-form}">Afegir Tasca</a> |
+		<a th:href="@{/}">Tornar al menú principal</a>
+	</p>
+</body>
+
+</html>

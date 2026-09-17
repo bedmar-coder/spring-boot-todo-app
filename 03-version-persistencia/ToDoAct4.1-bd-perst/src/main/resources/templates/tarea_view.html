@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Detall Tasca</title>
+</head>
+
+<body>
+	<h1 th:text="'Detall Tasca ' + ${tarea.codigo}"></h1>
+	<ul>
+		<li><strong>Usuari:</strong>
+			<span th:text="${tarea.nombre}"></span>
+		</li>
+		<li><strong>Descripció:</strong>
+			<span th:text="${tarea.descripcion}"></span>
+		</li>
+		<li><strong>Venciment:</strong>
+			<span th:text="${#temporals.format(tarea.vencimientoEn, 'dd-MM-yyyy HH:mm')}"></span>
+		</li>
+		<li><strong>Realitzada:</strong>
+			<span th:text="${tarea.realizada ? 'Sí' : 'No'}"></span>
+		</li>
+		<li><strong>Prioritat:</strong>
+			<span th:text="${tarea.prioridad}"></span>
+		</li>
+		<li><strong>Categoria:</strong>
+			<span th:text="${tarea.categoria != null ? tarea.categoria : '-'}"></span>
+		</li>
+	</ul>
+	<p>
+		<a th:href="@{/cercar}">Anar al cercador</a> |
+		<a th:href="@{/tasques}">Veure llistat de tasques</a> |
+		<a th:href="@{/}">Anar al menú principal</a> |
+		<a th:href="@{/esborrar(code=${tarea.codigo})}">Esborrar tasca</a>
+	</p>
+</body>
+
+</html>
