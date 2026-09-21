@@ -12,7 +12,7 @@ El proyecto está dividido en tres carpetas, cada una representando una evoluci�
 2. **`02-version-mariadb`**: Evolución a persistencia real. Conexión directa a una base de datos relacional MariaDB mediante consultas SQL para garantizar que los datos sobrevivan al reinicio del servidor.
 3. **`03-version-persistencia`**: Refactorización final implementando frameworks de persistencia avanzados. Mapeo Objeto-Relacional (ORM) para un código más limpio, escalable y mantenible.
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 - **Backend Framework:** Java, Spring Boot, Spring MVC.
 - **Bases de Datos:** MariaDB.
 - **Arquitectura:** Patrón MVC (Modelo-Vista-Controlador).
