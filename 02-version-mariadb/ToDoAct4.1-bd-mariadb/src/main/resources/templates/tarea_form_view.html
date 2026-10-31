@@ -3,11 +3,11 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Afegir Nova Tasca</title>
+	<title>Add New Task</title>
 </head>
 
 <body>
-	<h1>Afegir Nova Tasca</h1>
+	<h1>Add New Task</h1>
 
 	<div th:if="${errorMsg}" style="color:red;">
 		<p th:text="${errorMsg}"></p>
@@ -15,15 +15,15 @@
 
 	<form action="/tarea-add" method="post">
 
-		<label>Usuari:
+		<label>User:
 			<input name="user" type="text" required />
 		</label><br /><br />
 
-		<label>Descripció:
+		<label>Description:
 			<input name="description" type="text" required />
 		</label><br /><br />
 
-		<label>Prioritat:
+		<label>Priority:
 			<select name="priority" required>
 				<option th:each="p : ${prioritats}" th:value="${p}" th:text="${p}"></option>
 			</select>
@@ -31,28 +31,28 @@
 
 		<label>
 			<input name="done" type="checkbox" value="true" />
-			Realitzada
+			Done
 		</label><br /><br />
 
-		<label>Data de venciment:
+		<label>Due date:
 			<input name="endingDate" type="date" required />
 		</label><br /><br />
 
-		<label>Hora de venciment:
+		<label>Due time:
 			<input name="endingTime" type="time" required />
 		</label><br /><br />
 
-		<label>Categoria:
+		<label>Category:
 			<select name="categoria">
-				<option value="">-- Sense categoria --</option>
+				<option value="">-- No category --</option>
 				<option th:each="c : ${categories}" th:value="${c}" th:text="${c}"></option>
 			</select>
 		</label><br /><br />
 
-		<input type="submit" value="Afegir" />
+		<input type="submit" value="Add" />
 	</form>
 
-	<p><a th:href="@{/}">Tornar al menú principal</a></p>
+	<p><a th:href="@{/}">Back to main menu</a></p>
 </body>
 
 </html>

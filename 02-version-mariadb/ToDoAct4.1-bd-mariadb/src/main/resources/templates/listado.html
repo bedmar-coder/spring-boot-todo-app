@@ -3,22 +3,22 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Llistat de Tasques</title>
+	<title>Task List</title>
 </head>
 
 <body>
-	<h1>Llistat de tasques</h1>
+	<h1>Task list</h1>
 
 	<table border="1" cellpadding="6">
 		<thead>
 			<tr>
-				<th>Codi</th>
-				<th>Usuari</th>
-				<th>Descripció</th>
-				<th>Venciment</th>
-				<th>Realitzada</th>
-				<th>Categoria</th>
-				<th>Accions</th>
+				<th>Code</th>
+				<th>User</th>
+				<th>Description</th>
+				<th>Due</th>
+				<th>Done</th>
+				<th>Category</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,18 +27,18 @@
 				<td th:text="${t.nombre}"></td>
 				<td th:text="${t.descripcion}"></td>
 				<td th:text="${#temporals.format(t.vencimientoEn, 'dd-MM-yyyy HH:mm')}"></td>
-				<td th:text="${t.realizada ? 'Sí' : 'No'}"></td>
+				<td th:text="${t.realizada ? 'Yes' : 'No'}"></td>
 				<td th:text="${t.categoria != null ? t.categoria : '-'}"></td>
 				<td>
-					<a th:href="@{/esborrar(code=${t.codigo})}">Esborrar</a> |
-					<a th:href="@{/tarea(code=${t.codigo})}">Detall</a>
+					<a th:href="@{/esborrar(code=${t.codigo})}">Delete</a> |
+					<a th:href="@{/tarea(code=${t.codigo})}">Details</a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 	<p>
-		<a th:href="@{/tarea-form}">Afegir Tasca</a> |
-		<a th:href="@{/}">Tornar al menú principal</a>
+		<a th:href="@{/tarea-form}">Add Task</a> |
+		<a th:href="@{/}">Back to main menu</a>
 	</p>
 </body>
 

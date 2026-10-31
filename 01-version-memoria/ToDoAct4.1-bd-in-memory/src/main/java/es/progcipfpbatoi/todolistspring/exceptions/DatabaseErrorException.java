@@ -1,10 +1,22 @@
 package es.progcipfpbatoi.todolistspring.exceptions;
 
+/**
+ * Thrown when something goes wrong while reading or writing the stored tasks.
+ */
 public class DatabaseErrorException extends RuntimeException {
-    public DatabaseErrorException(String mensaje) {
-        super(mensaje);
+
+    /**
+     * @param message the text explaining the error
+     */
+    public DatabaseErrorException(String message) {
+        super(message);
     }
-    public DatabaseErrorException(String mensaje, Throwable causa) {
-        super(mensaje, causa);
+
+    /**
+     * @param message the text explaining the error
+     * @param cause the original exception
+     */
+    public DatabaseErrorException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

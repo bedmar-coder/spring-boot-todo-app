@@ -3,38 +3,38 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Cercador de Tasques</title>
+	<title>Task Search</title>
 </head>
 
 <body>
-	<h1>Cercador de tasques</h1>
+	<h1>Task search</h1>
 	<form method="post" th:action="@{/cercar}">
-		<p><strong>Criteris de cerca:</strong></p>
-		<label>Usuari:
-			<input type="text" name="usuario" th:value="${usuario}" placeholder="Introduïsca un usuari..." />
+		<p><strong>Search criteria:</strong></p>
+		<label>User:
+			<input type="text" name="usuario" th:value="${usuario}" placeholder="Enter a user..." />
 		</label><br /><br />
-		<label>Data de venciment:
+		<label>Due date:
 			<input type="date" name="fechaVencimiento" th:value="${fechaVencimiento != null ?
                    #temporals.format(fechaVencimiento,'yyyy-MM-dd') : ''}" />
 		</label>
-		<label>Realitzada:
+		<label>Done:
 			<input type="checkbox" name="realizada" value="true" th:checked="${realizada}" />
 		</label>
-		<button type="submit">Cercar</button>
-		<a th:href="@{/cercar}"><button type="button">Netejar</button></a>
+		<button type="submit">Search</button>
+		<a th:href="@{/cercar}"><button type="button">Clear</button></a>
 	</form>
 	<div th:if="${tareas != null}">
-		<p><strong>Resultats de la cerca</strong></p>
+		<p><strong>Search results</strong></p>
 		<table border="1" cellpadding="6">
 			<thead>
 				<tr>
-					<th>Codi</th>
-					<th>Usuari</th>
-					<th>Descripció</th>
-					<th>Venciment</th>
-					<th>Realitzada</th>
-					<th>Categoria</th>
-					<th>Accions</th>
+					<th>Code</th>
+					<th>User</th>
+					<th>Description</th>
+					<th>Due</th>
+					<th>Done</th>
+					<th>Category</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,11 +43,11 @@
 					<td th:text="${t.nombre}"></td>
 					<td th:text="${t.descripcion}"></td>
 					<td th:text="${#temporals.format(t.vencimientoEn, 'dd-MM-yyyy HH:mm')}"></td>
-					<td th:text="${t.realizada ? 'Sí' : 'No'}"></td>
+					<td th:text="${t.realizada ? 'Yes' : 'No'}"></td>
 					<td th:text="${t.categoria != null ? t.categoria : '-'}"></td>
 					<td>
-						<a th:href="@{/esborrar(code=${t.codigo})}">Esborrar</a> |
-						<a th:href="@{/tarea(code=${t.codigo})}">Detall</a>
+						<a th:href="@{/esborrar(code=${t.codigo})}">Delete</a> |
+						<a th:href="@{/tarea(code=${t.codigo})}">Details</a>
 					</td>
 				</tr>
 			</tbody>
@@ -55,8 +55,8 @@
 	</div>
 
 	<p>
-		<a th:href="@{/tarea-form}">Afegir Tasca</a> |
-		<a th:href="@{/}">Tornar al menú principal</a>
+		<a th:href="@{/tarea-form}">Add Task</a> |
+		<a th:href="@{/}">Back to main menu</a>
 	</p>
 </body>
 

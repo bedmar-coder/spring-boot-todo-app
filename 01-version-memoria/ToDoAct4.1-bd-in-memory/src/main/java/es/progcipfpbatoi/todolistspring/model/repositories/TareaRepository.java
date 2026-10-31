@@ -13,29 +13,36 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * In-memory task storage. The data is lost every time the app restarts.
+ */
 @Repository
 public class TareaRepository {
 
 	private ArrayList<Tarea> tareas;
 	private final AtomicInteger contador = new AtomicInteger(1);
 
+	/**
+	 * Creates the storage with a few sample tasks.
+	 */
 	public TareaRepository() {
 		this.tareas = new ArrayList<>();
 
-		tareas.add(new Tarea(contador.getAndIncrement(), "Juan", "Partido de baloncesto",
+		tareas.add(new Tarea(contador.getAndIncrement(), "Juan", "Basketball game",
 				LocalDateTime.of(2026, 5, 12, 20, 0), Prioritat.ALTA, false));
-		tareas.add(new Tarea(contador.getAndIncrement(), "Juan", "Estudiar Programación",
+		tareas.add(new Tarea(contador.getAndIncrement(), "Juan", "Study Programming",
 				LocalDateTime.of(2026, 5, 18, 20, 0), Prioritat.MITJANA, false));
-		tareas.add(new Tarea(contador.getAndIncrement(), "Batoi", "Hacer la comida",
+		tareas.add(new Tarea(contador.getAndIncrement(), "Batoi", "Make lunch",
 				LocalDateTime.of(2026, 5, 12, 20, 0), Prioritat.BAIXA, true));
-		tareas.add(new Tarea(contador.getAndIncrement(), "Elena", "Podar los setos del jardín",
+		tareas.add(new Tarea(contador.getAndIncrement(), "Elena", "Trim the garden hedges",
 				LocalDateTime.of(2026, 5, 10, 7, 52), Prioritat.MITJANA, false));
 	}
 
 	/**
-	 * Añade la Tarea recibida como argumento a la base de datos en memoria
-	 * 
-	 * @param tarea
+	 * Adds the given task to the in-memory database, giving it a new code.
+	 *
+	 * @param tarea the task to add
+	 * @throws DuplicatedTaskException if an equal task is already stored
 	 */
 	public void add(Tarea tarea) throws DuplicatedTaskException {
 		for (Tarea elem : tareas) {
@@ -48,12 +55,11 @@ public class TareaRepository {
 	}
 
 	/**
-	 * Obtiene la Tarea con codigo @codTarea. En caso de que no la encuentre
-	 * devolverá una excepción
-	 * 
-	 * @NotFoundException
+	 * Gets the task with the given code.
 	 *
-	 * @param codTarea
+	 * @param codTarea the code of the task to look for
+	 * @return the task with that code
+	 * @throws NotFoundException if there's no task with that code
 	 */
 	public Tarea get(int codTarea) throws NotFoundException {
 		for (Tarea t : tareas) {
@@ -61,19 +67,23 @@ public class TareaRepository {
 				return t;
 			}
 		}
-		throw new NotFoundException("La tasca amb codi " + codTarea + " no existeix");
+		throw new NotFoundException("The task with code " + codTarea + " doesn't exist");
 	}
 
 	/**
-	 * Devuelve el listado de todas las tareas.
+	 * Returns the list of all the tasks.
+	 *
+	 * @return a copy of the task list
 	 */
 	public ArrayList<Tarea> findAll() {
 		return new ArrayList<>(tareas);
 	}
 
 	/**
-	 * Devuelve el listado de todas las tareas cuyo atributo nombre coincide
-	 * con @user
+	 * Returns all the tasks whose user (nombre) matches the given one.
+	 *
+	 * @param user the user to filter by (empty or null returns every task)
+	 * @return the matching tasks
 	 */
 	public ArrayList<Tarea> findAll(String user) {
 
@@ -85,9 +95,14 @@ public class TareaRepository {
 				.filter(t -> t.getNombre().equalsIgnoreCase(user))
 				.collect(Collectors.toCollection(ArrayList::new));
 	}
+
 	/**
-	 * FIltra con los datos
-	 * dados
+	 * Filters the tasks with the given data. Any filter left empty is ignored.
+	 *
+	 * @param usuario the user to filter by
+	 * @param fechaVencimiento the due date to filter by
+	 * @param realizada whether the task is done
+	 * @return the matching tasks
 	 */
 	public ArrayList<Tarea> findByFiltros(String usuario, LocalDate fechaVencimiento, Boolean realizada) {
 		return tareas.stream()
@@ -98,16 +113,19 @@ public class TareaRepository {
 	}
 
 	/**
-     * Elimina la tarea con el código dado y la devuelve.
-     * Lanza NotFoundException si no existe.
-     */
-    public Tarea delete(int codTarea) throws NotFoundException {
-        for (int i = 0; i < tareas.size(); i++) {
-            if (tareas.get(i).getCodigo() == codTarea) {
-                return tareas.remove(i);
-            }
-        }
-        throw new NotFoundException("La tasca amb codi " + codTarea + " no existeix");
-    }
+	 * Deletes the task with the given code and returns it.
+	 *
+	 * @param codTarea the code of the task to delete
+	 * @return the deleted task
+	 * @throws NotFoundException if there's no task with that code
+	 */
+	public Tarea delete(int codTarea) throws NotFoundException {
+		for (int i = 0; i < tareas.size(); i++) {
+			if (tareas.get(i).getCodigo() == codTarea) {
+				return tareas.remove(i);
+			}
+		}
+		throw new NotFoundException("The task with code " + codTarea + " doesn't exist");
+	}
 
 }

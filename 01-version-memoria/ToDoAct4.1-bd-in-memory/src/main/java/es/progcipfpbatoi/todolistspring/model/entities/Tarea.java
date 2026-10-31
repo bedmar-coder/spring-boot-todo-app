@@ -3,22 +3,40 @@ package es.progcipfpbatoi.todolistspring.model.entities;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * A task (tarea): who it belongs to, what it is, when it's due, its priority,
+ * whether it's done and its category. The field names are kept in Spanish
+ * because the HTML templates use them.
+ */
 public class Tarea {
 
     private int codigo;
-    private String nombre;       
+    private String nombre;
     private String descripcion;
     private LocalDateTime creadoEn;
     private LocalDateTime vencimientoEn;
     private Prioritat prioridad;
     private boolean realizada;
-    private String categoria;    
+    private String categoria;
 
-   
+
+    /**
+     * Creates an empty task, with its creation date set to now.
+     */
     public Tarea() {
         this.creadoEn = LocalDateTime.now();
     }
 
+    /**
+     * Creates a task with all its main data.
+     *
+     * @param codigo the task's code
+     * @param nombre the user the task belongs to
+     * @param descripcion what the task is about
+     * @param vencimientoEn when it's due
+     * @param prioridad its priority
+     * @param realizada whether it's already done
+     */
     public Tarea(int codigo, String nombre, String descripcion,
                  LocalDateTime vencimientoEn, Prioritat prioridad,
                  boolean realizada) {
@@ -31,7 +49,7 @@ public class Tarea {
         this.realizada = realizada;
     }
 
-    
+
     public int getCodigo() { return codigo; }
     public String getNombre() { return nombre; }
     public String getDescripcion() { return descripcion; }
@@ -41,7 +59,7 @@ public class Tarea {
     public boolean isRealizada() { return realizada; }
     public String getCategoria() { return categoria; }
 
-   
+
     public void setCodigo(int codigo) { this.codigo = codigo; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
@@ -54,6 +72,12 @@ public class Tarea {
     @Override
     public int hashCode() { return Objects.hash(codigo); }
 
+    /**
+     * Two tasks are equal when they have the same code.
+     *
+     * @param obj the object to compare with
+     * @return true if it's a task with the same code
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

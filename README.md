@@ -1,19 +1,21 @@
-# To-Do Web App | Evolución de Arquitectura con Spring Boot 
+# To-Do Web App with Spring Boot
 
-**Trabajo de 1º Programación de DAM.** Este proyecto es una aplicación web completa para la gestión de tareas (To-Do List) desarrollada con Java y Spring Boot. 
+A small to-do list web app I built while learning Java and Spring Boot. You can list tasks, search them by user, due date or status, add new ones, see their details and delete them.
 
-Lo más destacado de este repositorio es que muestra la **evolución técnica de la aplicación a través de 3 fases distintas**, demostrando capacidad de adaptación a diferentes sistemas de almacenamiento de datos.
+The repo has three folders, one for each step of the exercise. The pages are the same in all of them; what changes is where the tasks are stored:
 
-## Estructura del Repositorio (Versiones)
+1. **`01-version-memoria`** – tasks kept in memory (they're lost when the app restarts).
+2. **`02-version-mariadb`** – tasks stored in a MariaDB database using plain SQL.
+3. **`03-version-persistencia`** – tasks stored in a local file with the Perst object database.
 
-El proyecto está dividido en tres carpetas, cada una representando una evolución en la persistencia de datos:
+**Just to be clear:** this isn't a real product and it's not meant to be used for anything serious. It's a practice project I made to learn the language and the framework. Some names in the code (and the sample categories) are still in Spanish/Valencian because the templates and the database depend on them.
 
-1. **`01-version-memoria`**: La implementación inicial. Los datos se almacenan en estructuras de datos temporales (en memoria). Ideal para testear la lógica de los controladores MVC sin depender de servicios externos.
-2. **`02-version-mariadb`**: Evolución a persistencia real. Conexión directa a una base de datos relacional MariaDB mediante consultas SQL para garantizar que los datos sobrevivan al reinicio del servidor.
-3. **`03-version-persistencia`**: Refactorización final implementando frameworks de persistencia avanzados. Mapeo Objeto-Relacional (ORM) para un código más limpio, escalable y mantenible.
+## Running it
 
-## Tecnologías Utilizadas
-- **Backend Framework:** Java, Spring Boot, Spring MVC.
-- **Bases de Datos:** MariaDB.
-- **Arquitectura:** Patrón MVC (Modelo-Vista-Controlador).
-- **Gestión de Datos:** Operaciones CRUD (Crear, Leer, Actualizar, Borrar).
+Each version is a separate Maven project. From inside one of the version folders:
+
+```bash
+./mvnw spring-boot:run
+```
+
+Then open http://localhost:8080. The MariaDB version needs its own database set up first.
